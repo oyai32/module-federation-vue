@@ -1,6 +1,7 @@
 const path = require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
+const { ModuleFederationPlugin } = require("webpack").container;
 
 module.exports = {
   devtool: false,
@@ -25,6 +26,11 @@ module.exports = {
     new HTMLWebpackPlugin({
       template: path.resolve(__dirname, './public/index.html'),
     }),
+    new ModuleFederationPlugin({
+      remotes: {
+        app1: "app1@http://localhost:3001/remoteEntry.js",
+      },
+   })
   ],
   devServer: {
     port: 3002,
