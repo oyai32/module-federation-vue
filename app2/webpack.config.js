@@ -2,6 +2,7 @@ const path = require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const { ModuleFederationPlugin } = require("webpack").container;
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
 module.exports = {
   devtool: false,
@@ -34,5 +35,23 @@ module.exports = {
   ],
   devServer: {
     port: 3002,
+    before(app) {
+      app.use(
+        '/devApi',
+        // // 代理到 app1
+        // createProxyMiddleware({
+        //   target: 'http://localhost:3001',
+        //   changeOrigin: true
+        // })
+        // 直接代理到服务端
+        createProxyMiddleware({
+          target: 'http://localhost:8090',
+          changeOrigin: true,
+          pathRewrite: {
+            '^/devApi': '' 
+          }
+        })
+      );
+    }
   }
 };
