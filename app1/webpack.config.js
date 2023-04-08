@@ -34,6 +34,7 @@ module.exports = {
       // 需要暴露的模块，使用时通过 `${name}/${expose}` 引入
       exposes: {
         './Header': "./src/components/Header.vue",
+        './dayjs':'dayjs',
       },
     }),
   ],
