@@ -2,6 +2,7 @@ const path = require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const { ModuleFederationPlugin } = require("webpack").container;
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
 module.exports = {
   devtool: false,
@@ -40,5 +41,17 @@ module.exports = {
   ],
   devServer: {
     port: 3001,
+    before(app) {
+      app.use(
+        '/devApi',
+        createProxyMiddleware({
+          target: 'http://localhost:8090',
+          changeOrigin: true,
+          pathRewrite: {
+            '^/devApi': '' 
+          }
+        })
+      );
+    }
   }
 };

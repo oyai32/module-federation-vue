@@ -23,7 +23,7 @@ export default {
   },
   async mounted() {
     this.day = dayjs().format('YYYY-MM-DD');
-    this.message = await fetch('localhost:8090/getData')
+    this.message = await fetch('/devApi/getData')
       .then(response => response.json())
       .catch(error => this.error = error)
   },
