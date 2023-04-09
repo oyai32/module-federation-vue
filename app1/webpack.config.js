@@ -36,6 +36,7 @@ module.exports = {
       exposes: {
         './Header': "./src/components/Header.vue",
         './dayjs':'dayjs',
+        './Index':'./src/main.js'
       },
     }),
   ],
