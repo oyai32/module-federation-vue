@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "app1": "cd app1 && yarn start",
+    "app2": "cd app2 && yarn start",
+    "container": "cd container && yarn start",
+    "server": "node server/webServer.js",
+    "start": "concurrently \"npm run app1\" \"npm run app2\" \"npm run container\""
+  }
+}
